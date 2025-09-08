@@ -1,17 +1,17 @@
 // Block review code
 document.addEventListener('contextmenu', function (e) {
-  e.preventDefault();
+    e.preventDefault();
 });
 document.addEventListener('keydown', function (e) {
-  if (
-    e.key === 'F12' ||
-    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-    (e.ctrlKey && e.key === 'U')
-  ) {
-    e.preventDefault();
-  }
+    if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+        (e.ctrlKey && e.key === 'U')
+    ) {
+        e.preventDefault();
+    }
 });
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     tailwind.config = {
         theme: {
             extend: {
@@ -77,11 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Header scroll effect - Cập nhật
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const header = document.getElementById('header');
         const backToTop = document.getElementById('backToTop');
         const scrollIndicator = document.getElementById('scrollIndicator');
-        
+
         if (window.scrollY > 50) {
             header.classList.add('header-scrolled');
             if (backToTop) {
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 backToTop.classList.remove('opacity-100', 'visible');
             }
         }
-        
+
         // Update scroll progress
         const scrollTop = window.pageYOffset;
         const docHeight = document.body.offsetHeight - window.innerHeight;
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (scrollIndicator) {
             scrollIndicator.style.transform = `scaleX(${scrollPercent / 100})`;
         }
-        
+
         // Update active navigation
         updateActiveNavigation();
     });
@@ -111,8 +111,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Back to top functionality
     const backToTopButton = document.getElementById('backToTop');
-    if(backToTopButton) {
-        backToTopButton.addEventListener('click', function() {
+    if (backToTopButton) {
+        backToTopButton.addEventListener('click', function () {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -123,12 +123,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    
+
     if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
             const icon = mobileMenuBtn.querySelector('i');
-            
+
             if (mobileMenu.classList.contains('hidden')) {
                 icon.className = 'fas fa-bars';
             } else {
@@ -145,12 +145,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (target) {
                 const headerHeight = document.getElementById('header').offsetHeight;
                 const targetPosition = target.offsetTop - headerHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
-                
+
                 // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobileMenu');
                 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Counter animation
     function animateCounters() {
         const counters = document.querySelectorAll('.counter');
-        
+
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const duration = 2000; // 2 seconds
                     const step = target / (duration / 16); // 60fps
                     let current = 0;
-                    
+
                     const updateCounter = () => {
                         if (current < target) {
                             current += step;
@@ -191,13 +191,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             counter.textContent = target;
                         }
                     };
-                    
+
                     updateCounter();
                     counterObserver.unobserve(counter);
                 }
             });
         }, { threshold: 0.5 });
-        
+
         counters.forEach(counter => {
             counterObserver.observe(counter);
         });
@@ -208,36 +208,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Tilt effect for cards
     document.querySelectorAll('.tilt-card').forEach(card => {
-        card.addEventListener('mousemove', function(e) {
+        card.addEventListener('mousemove', function (e) {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const rotateX = (y - centerY) / 10;
             const rotateY = (centerX - x) / 10;
-            
+
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
         });
-        
-        card.addEventListener('mouseleave', function() {
+
+        card.addEventListener('mouseleave', function () {
             card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
         });
     });
 
     // Magnetic button effect
     document.querySelectorAll('.magnetic-button').forEach(button => {
-        button.addEventListener('mousemove', function(e) {
+        button.addEventListener('mousemove', function (e) {
             const rect = button.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            
+
             button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.05)`;
         });
-        
-        button.addEventListener('mouseleave', function() {
+
+        button.addEventListener('mouseleave', function () {
             button.style.transform = 'translate(0px, 0px) scale(1)';
         });
     });
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // GSAP animations
     if (typeof gsap !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
-        
+
         // Hero text animation
         gsap.from('.hero-content h1', {
             duration: 1,
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
             opacity: 0,
             ease: 'power3.out'
         });
-        
+
         gsap.from('.hero-content p', {
             duration: 1,
             y: 50,
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
             delay: 0.3,
             ease: 'power3.out'
         });
-        
+
         // Floating elements animation
         gsap.to('.floating-shapes .shape:nth-child(1)', {
             y: -30,
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
             yoyo: true,
             ease: 'power2.inOut'
         });
-                    
+
         gsap.to('.floating-shapes .shape:nth-child(2)', {
             y: -20,
             duration: 2.5,
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ease: 'power2.inOut',
             delay: 1
         });
-        
+
         gsap.to('.floating-shapes .shape:nth-child(3)', {
             y: -25,
             duration: 3.5,
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ease: 'power2.inOut',
             delay: 2
         });
-        
+
         // Section animations
         gsap.utils.toArray('.section-animate').forEach(section => {
             gsap.from(section, {
@@ -361,15 +361,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add loading states for buttons
     document.querySelectorAll('.btn-primary, .btn-secondary, .cta-btn').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             if (this.href && (this.href.startsWith('tel:') || this.href.startsWith('mailto:'))) {
                 return; // Don't add loading state for tel/mailto links
             }
-            
+
             const originalText = this.innerHTML;
             this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Đang xử lý...';
             this.disabled = true;
-            
+
             setTimeout(() => {
                 this.innerHTML = originalText;
                 this.disabled = false;
@@ -380,30 +380,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form validation and submission (if contact form exists)
     const contactForms = document.querySelectorAll('form');
     contactForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Add your form submission logic here
             const formData = new FormData(form);
-            
+
             // Show success message
             const successMessage = document.createElement('div');
             successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
             successMessage.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm nhất.';
-            
+
             document.body.appendChild(successMessage);
-            
+
             setTimeout(() => {
                 successMessage.style.transform = 'translateX(0)';
             }, 100);
-            
+
             setTimeout(() => {
                 successMessage.style.transform = 'translateX(100%)';
                 setTimeout(() => {
                     document.body.removeChild(successMessage);
                 }, 300);
             }, 3000);
-            
+
             // Reset form
             form.reset();
         });
@@ -411,23 +411,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add click tracking for analytics
     document.querySelectorAll('a, button').forEach(element => {
-        element.addEventListener('click', function() {
+        element.addEventListener('click', function () {
             const action = this.textContent.trim() || this.getAttribute('aria-label') || 'Unknown';
             console.log('User interaction:', action);
-            
+
             // Add your analytics tracking code here
             // Example: gtag('event', 'click', { 'event_category': 'engagement', 'event_label': action });
         });
     });
 
     // Add keyboard navigation support
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Tab') {
             document.body.classList.add('keyboard-navigation');
         }
     });
 
-    document.addEventListener('mousedown', function() {
+    document.addEventListener('mousedown', function () {
         document.body.classList.remove('keyboard-navigation');
     });
 
@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate-in');
@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Preloader (optional)
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         const preloader = document.getElementById('preloader');
         if (preloader) {
             preloader.style.opacity = '0';
@@ -472,18 +472,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Error handling for external resources
-    window.addEventListener('error', function(e) {
+    window.addEventListener('error', function (e) {
         console.warn('Resource failed to load:', e.target.src || e.target.href);
     });
 
     // Service Worker registration (for PWA capabilities)
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             navigator.serviceWorker.register('/sw.js')
-                .then(function(registration) {
+                .then(function (registration) {
                     console.log('ServiceWorker registration successful');
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     console.log('ServiceWorker registration failed');
                 });
         });
@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Performance monitoring
     if ('performance' in window) {
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             setTimeout(() => {
                 const perfData = performance.getEntriesByType('navigation')[0];
                 console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
@@ -501,171 +501,171 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Thêm vào cuối file script.js
 
-// Array chứa thông tin các ảnh giải thưởng
-const awardImages = [
-    {
-        src: 'image/top10.jpg',
-        title: 'TOP 10 Doanh nghiệp CNTT Việt Nam 2022',
-        description: 'Vinh danh CUSC trong danh sách 10 doanh nghiệp CNTT hàng đầu'
-    },
-    {
-        src: 'image/chungnhan.png',
-        title: 'Giải thưởng chuyển đổi số Việt Nam 2019',
-        description: 'Công nhận đóng góp xuất sắc trong chuyển đổi số quốc gia'
-    },
-    {
-        src: 'image/saokhueISO.jpg',
-        title: 'Giải thưởng Sao Khuê 2018',
-        description: 'Giải thưởng danh giá nhất ngành CNTT Việt Nam'
-    }
-];
-
-let currentImageIndex = 0;
-
-// Mở modal xem ảnh full size
-function viewFullImage(imageSrc, title) {
-    // Tìm index của ảnh hiện tại
-    currentImageIndex = awardImages.findIndex(img => img.src === imageSrc);
-    
-    const modal = document.getElementById('fullImageModal');
-    const image = document.getElementById('fullImage');
-    const titleElement = document.getElementById('fullImageTitle');
-    
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    image.src = imageSrc;
-    titleElement.textContent = title;
-    
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
-    
-    // Add loading effect
-    image.style.opacity = '0';
-    image.onload = function() {
-        image.style.opacity = '1';
-        image.style.transition = 'opacity 0.3s ease';
-    };
-}
-
-// Đóng modal
-function closeFullImage() {
-    const modal = document.getElementById('fullImageModal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    document.body.style.overflow = 'auto';
-}
-
-// Xem ảnh trước
-function prevImage() {
-    currentImageIndex = (currentImageIndex - 1 + awardImages.length) % awardImages.length;
-    const currentImage = awardImages[currentImageIndex];
-    
-    const image = document.getElementById('fullImage');
-    const titleElement = document.getElementById('fullImageTitle');
-    
-    image.style.opacity = '0';
-    setTimeout(() => {
-        image.src = currentImage.src;
-        titleElement.textContent = currentImage.title;
-        image.style.opacity = '1';
-    }, 150);
-}
-
-// Xem ảnh tiếp theo
-function nextImage() {
-    currentImageIndex = (currentImageIndex + 1) % awardImages.length;
-    const currentImage = awardImages[currentImageIndex];
-    
-    const image = document.getElementById('fullImage');
-    const titleElement = document.getElementById('fullImageTitle');
-    
-    image.style.opacity = '0';
-    setTimeout(() => {
-        image.src = currentImage.src;
-        titleElement.textContent = currentImage.title;
-        image.style.opacity = '1';
-    }, 150);
-}
-
-// Tải ảnh về máy
-function downloadImage() {
-    const image = document.getElementById('fullImage');
-    const link = document.createElement('a');
-    link.href = image.src;
-    link.download = `cusc-award-${Date.now()}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-// Đóng modal khi nhấn ESC
-document.addEventListener('keydown', function(e) {
-    const modal = document.getElementById('fullImageModal');
-    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closeFullImage();
-    }
-    // Navigation với arrow keys
-    if (!modal.classList.contains('hidden')) {
-        if (e.key === 'ArrowLeft') {
-            prevImage();
-        } else if (e.key === 'ArrowRight') {
-            nextImage();
+    // Array chứa thông tin các ảnh giải thưởng
+    const awardImages = [
+        {
+            src: 'image/top10.jpg',
+            title: 'TOP 10 Doanh nghiệp CNTT Việt Nam 2022',
+            description: 'Vinh danh CUSC trong danh sách 10 doanh nghiệp CNTT hàng đầu'
+        },
+        {
+            src: 'image/chungnhan.png',
+            title: 'Giải thưởng chuyển đổi số Việt Nam 2019',
+            description: 'Công nhận đóng góp xuất sắc trong chuyển đổi số quốc gia'
+        },
+        {
+            src: 'image/saokhueISO.jpg',
+            title: 'Giải thưởng Sao Khuê 2018',
+            description: 'Giải thưởng danh giá nhất ngành CNTT Việt Nam'
         }
+    ];
+
+    let currentImageIndex = 0;
+
+    // Mở modal xem ảnh full size
+    function viewFullImage(imageSrc, title) {
+        // Tìm index của ảnh hiện tại
+        currentImageIndex = awardImages.findIndex(img => img.src === imageSrc);
+
+        const modal = document.getElementById('fullImageModal');
+        const image = document.getElementById('fullImage');
+        const titleElement = document.getElementById('fullImageTitle');
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        image.src = imageSrc;
+        titleElement.textContent = title;
+
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+
+        // Add loading effect
+        image.style.opacity = '0';
+        image.onload = function () {
+            image.style.opacity = '1';
+            image.style.transition = 'opacity 0.3s ease';
+        };
     }
-});
 
-// Đóng modal khi click bên ngoài
-document.getElementById('fullImageModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeFullImage();
+    // Đóng modal
+    function closeFullImage() {
+        const modal = document.getElementById('fullImageModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
     }
-});
 
-// Thêm zoom functionality cho ảnh trong modal
-let isZoomed = false;
-let zoomLevel = 1;
+    // Xem ảnh trước
+    function prevImage() {
+        currentImageIndex = (currentImageIndex - 1 + awardImages.length) % awardImages.length;
+        const currentImage = awardImages[currentImageIndex];
 
-document.getElementById('fullImage').addEventListener('click', function(e) {
-    e.stopPropagation();
-    
-    if (!isZoomed) {
-        this.style.transform = 'scale(1.5)';
-        this.style.cursor = 'zoom-out';
-        isZoomed = true;
-        zoomLevel = 1.5;
-    } else {
-        this.style.transform = 'scale(1)';
-        this.style.cursor = 'zoom-in';
-        isZoomed = false;
-        zoomLevel = 1;
+        const image = document.getElementById('fullImage');
+        const titleElement = document.getElementById('fullImageTitle');
+
+        image.style.opacity = '0';
+        setTimeout(() => {
+            image.src = currentImage.src;
+            titleElement.textContent = currentImage.title;
+            image.style.opacity = '1';
+        }, 150);
     }
-});
 
-// Mouse wheel zoom
-const fullImage = document.getElementById('fullImage');
-if (fullImage) {
-    fullImage.addEventListener('wheel', function(e) {
-        e.preventDefault();
-        
-        if (e.deltaY < 0) {
-            // Zoom in
-            zoomLevel = Math.min(zoomLevel + 0.1, 3);
-        } else {
-            // Zoom out
-            zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
+    // Xem ảnh tiếp theo
+    function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % awardImages.length;
+        const currentImage = awardImages[currentImageIndex];
+
+        const image = document.getElementById('fullImage');
+        const titleElement = document.getElementById('fullImageTitle');
+
+        image.style.opacity = '0';
+        setTimeout(() => {
+            image.src = currentImage.src;
+            titleElement.textContent = currentImage.title;
+            image.style.opacity = '1';
+        }, 150);
+    }
+
+    // Tải ảnh về máy
+    function downloadImage() {
+        const image = document.getElementById('fullImage');
+        const link = document.createElement('a');
+        link.href = image.src;
+        link.download = `cusc-award-${Date.now()}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // Đóng modal khi nhấn ESC
+    document.addEventListener('keydown', function (e) {
+        const modal = document.getElementById('fullImageModal');
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeFullImage();
         }
-        
-        this.style.transform = `scale(${zoomLevel})`;
-        
-        if (zoomLevel > 1) {
-            this.style.cursor = 'zoom-out';
-            isZoomed = true;
-        } else {
-            this.style.cursor = 'zoom-in';
-            isZoomed = false;
+        // Navigation với arrow keys
+        if (!modal.classList.contains('hidden')) {
+            if (e.key === 'ArrowLeft') {
+                prevImage();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            }
         }
     });
-}
+
+    // Đóng modal khi click bên ngoài
+    document.getElementById('fullImageModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            closeFullImage();
+        }
+    });
+
+    // Thêm zoom functionality cho ảnh trong modal
+    let isZoomed = false;
+    let zoomLevel = 1;
+
+    document.getElementById('fullImage').addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        if (!isZoomed) {
+            this.style.transform = 'scale(1.5)';
+            this.style.cursor = 'zoom-out';
+            isZoomed = true;
+            zoomLevel = 1.5;
+        } else {
+            this.style.transform = 'scale(1)';
+            this.style.cursor = 'zoom-in';
+            isZoomed = false;
+            zoomLevel = 1;
+        }
+    });
+
+    // Mouse wheel zoom
+    const fullImage = document.getElementById('fullImage');
+    if (fullImage) {
+        fullImage.addEventListener('wheel', function (e) {
+            e.preventDefault();
+
+            if (e.deltaY < 0) {
+                // Zoom in
+                zoomLevel = Math.min(zoomLevel + 0.1, 3);
+            } else {
+                // Zoom out
+                zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
+            }
+
+            this.style.transform = `scale(${zoomLevel})`;
+
+            if (zoomLevel > 1) {
+                this.style.cursor = 'zoom-out';
+                isZoomed = true;
+            } else {
+                this.style.cursor = 'zoom-in';
+                isZoomed = false;
+            }
+        });
+    }
 
 
     console.log('🚀 CUSC-ISO Website loaded successfully!');
@@ -673,42 +673,42 @@ if (fullImage) {
     console.log('📧 Email: info@cusc.ctu.edu.vn');
     console.log('🌐 Website: https://www.cusc.ctu.edu.vn');
 
-// Thêm vào cuối file script.js
+    // Thêm vào cuối file script.js
 
-// Active Navigation Handler
-function updateActiveNavigation() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link, .nav-link-mobile');
-    const headerHeight = document.getElementById('header').offsetHeight;
-    
-    let currentSection = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - headerHeight - 50; // Adjusted offset
-        const sectionHeight = section.clientHeight;
-        const scrollPosition = window.pageYOffset;
-        
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            currentSection = section.getAttribute('id');
+    // Active Navigation Handler
+    function updateActiveNavigation() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link, .nav-link-mobile');
+        const headerHeight = document.getElementById('header').offsetHeight;
+
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - headerHeight - 50; // Adjusted offset
+            const sectionHeight = section.clientHeight;
+            const scrollPosition = window.pageYOffset;
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        // Handle case for the very bottom of the page
+        if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+            const lastSection = sections[sections.length - 2]; // Assuming contact is not a major section, but proof is.
+            if (lastSection) currentSection = lastSection.getAttribute('id');
         }
-    });
 
-    // Handle case for the very bottom of the page
-    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-         const lastSection = sections[sections.length - 2]; // Assuming contact is not a major section, but proof is.
-         if(lastSection) currentSection = lastSection.getAttribute('id');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (currentSection && link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
     }
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (currentSection && link.getAttribute('href') === `#${currentSection}`) {
-            link.classList.add('active');
-        }
-    });
-}
 
-// Initial check
-updateActiveNavigation();
+    // Initial check
+    updateActiveNavigation();
 
 });
 
